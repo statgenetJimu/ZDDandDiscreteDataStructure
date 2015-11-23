@@ -23,6 +23,7 @@ dics = random.sample(range(2**gene), samp)
 bins = []
 for dic in dics:
      bins.append(format (dic, 'b'))
+
 haplos = [map(int,[n for n in x]) for x in bins]
 
 #前からループを回して対応するedgeを残す
