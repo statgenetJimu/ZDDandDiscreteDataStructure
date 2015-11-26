@@ -10,6 +10,51 @@ from numpy import *
 
 import random
 
+def randomHapCaseCont(nmarker,ncase,ncont):
+    ncaco = ncase + ncont
+    dics = random.sample(range(2**nmarker), ncaco)
+    bins = []
+    for dic in dics:
+         bins.append(format (dic, 'b').zfill(nmarker))
+    
+    haps = [map(int,[n for n in x]) for x in bins]
+    
+    for i in range(ncaco):
+        if i < ncase:
+            haps[i].append(1)
+        else:
+            haps[i].append(0)
+    return haps
+
+def makeZDD(haps):
+    n = len(haps[1])
+    ng = len(haps)
+    
+    universe = []
+    
+    for i in range(n):
+      universe.append((i,i+1))
+    
+    GraphSet.set_universe(universe)
+    
+    g_univ = GraphSet({})
+    
+    g1 = []
+    i = 1
+    for i in range(ng):
+      tmp = []
+      for j in range(n):
+        if haps[i][j] == 1:
+          tmp.append(universe[j])
+      if i == 0:
+        g1 = [tmp]
+      else :
+        g1.append(tmp)
+    
+    G1 = GraphSet(g1)
+    G1.dumps()
+    
+
 
 ncase = 20
 ncont = 21
