@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 from numpy import *
 
 import random
+import collections
 
 def randomHapCaseCont(nmarker,ncase,ncont):
     ncaco = ncase + ncont
@@ -24,6 +25,15 @@ def randomHapCaseCont(nmarker,ncase,ncont):
             haps[i].append(1)
         else:
             haps[i].append(0)
+    return haps
+
+def randomHap(nmarker,ncaco):
+    dics = random.sample(range(2**nmarker), ncaco)
+    bins = []
+    for dic in dics:
+         bins.append(format (dic, 'b').zfill(nmarker))
+    
+    haps = [map(int,[n for n in x]) for x in bins]
     return haps
 
 def makeZDD(haps):
@@ -54,6 +64,49 @@ def makeZDD(haps):
     G1 = GraphSet(g1)
     return G1
     
+
+def graphZDD(G):
+    data = map (lambda x:x.split(" "),G.dumps().strip().split("\n"))
+    data.pop()
+    data_fl = list(chain.from_iterable(data))
+    len_data_fl = len(data_fl)
+    num_v = len_data_fl/4
+    v_id = data_fl[::4]
+    v_lab = data_fl[1::4]
+    v_lo = data_fl[2::4]
+    v_hi = data_fl[3::4]
+    
+    e_lo = []
+    e_hi = []
+    e_type_lo = []
+    e_type_hi = []
+    v_lab_num = []
+    for i in range(len(v_id)):
+      e_lo.append((v_id[i],v_lo[i]))
+      e_hi.append((v_id[i],v_hi[i]))
+      e_type_lo.append("b")
+      e_type_hi.append("r")
+      v_lab_num.append(int(v_lab[i]))
+    
+    gg = nx.Graph()
+    
+    gg.add_edges_from(e_lo,color='b')
+    gg.add_edges_from(e_hi,color='r')
+    return gg
+
+def statZDD(G):
+    data = map (lambda x:x.split(" "),G.dumps().strip().split("\n"))
+    data.pop()
+    data_fl = list(chain.from_iterable(data))
+    len_data_fl = len(data_fl)
+    num_v = len_data_fl/4
+    v_id = data_fl[::4]
+    v_lab = data_fl[1::4]
+    v_lo = data_fl[2::4]
+    v_hi = data_fl[3::4]
+    cc = collections.Counter(v_lab)
+    tmp = sorted(cc.items())
+    return map(lambda x:x[1],tmp)
 
 def plotZDD(G):
     data = map (lambda x:x.split(" "),G.dumps().strip().split("\n"))
@@ -109,6 +162,34 @@ def plotZDD(G):
     nx.draw_networkx_edges(gg,pos,e_hi,edge_color='r',style='dashed')
     plt.show()
 
-G = makeZDD(randomHapCaseCont(6,10,15))
-plotZDD(G)
+G = makeZDD(randomHapCaseCont(20,20,20))
+#plotZDD(G)
 
+g = graphZDD(G)
+
+print(statZDD(G))
+
+niter = 1000
+ncaco = 20
+nmarker = 21
+res = []
+for i in range(niter):
+    G = makeZDD(randomHap(nmarker,ncaco))
+    res.append(statZDD(G))
+
+means = map(lambda x:mean(x), res)
+sums = map(lambda x:sum(x),res)
+
+plt.hist(sums)
+plt.show()
+
+
+hapx = []
+for i in range(nmarker):
+    for j in range(ncaco):
+        hapx.append([0]*ncaco)
+        if i < ncaco:
+            hapx[i][i] = 1
+
+G = makeZDD(hapx)
+sum(statZDD(G))
