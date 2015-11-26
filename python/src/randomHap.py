@@ -162,20 +162,20 @@ def plotZDD(G):
     nx.draw_networkx_edges(gg,pos,e_hi,edge_color='r',style='dashed')
     plt.show()
 
-G = makeZDD(randomHapCaseCont(20,20,20))
+Gg = makeZDD(randomHapCaseCont(20,20,20))
 #plotZDD(G)
 
-g = graphZDD(G)
+gg = graphZDD(Gg)
 
-print(statZDD(G))
+print(statZDD(Gg))
 
-niter = 1000
+niter = 100
 ncaco = 20
 nmarker = 21
 res = []
 for i in range(niter):
-    G = makeZDD(randomHap(nmarker,ncaco))
-    res.append(statZDD(G))
+    Gg = makeZDD(randomHap(nmarker,ncaco))
+    res.append(statZDD(Gg))
 
 means = map(lambda x:mean(x), res)
 sums = map(lambda x:sum(x),res)
@@ -191,5 +191,54 @@ for i in range(nmarker):
         if i < ncaco:
             hapx[i][i] = 1
 
-G = makeZDD(hapx)
-sum(statZDD(G))
+Gg = makeZDD(hapx)
+sum(statZDD(Gg))
+
+G = graphZDD(Gg)
+
+
+degree_sequence=sorted(nx.degree(G).values(),reverse=True) # degree sequence
+#print "Degree sequence", degree_sequence
+dmax=max(degree_sequence)
+
+plt.loglog(degree_sequence,'b-',marker='o')
+plt.title("Degree rank plot")
+plt.ylabel("degree")
+plt.xlabel("rank")
+
+# draw graph in inset
+plt.axes([0.45,0.45,0.45,0.45])
+Gcc=sorted(nx.connected_component_subgraphs(G), key = len, reverse=True)[0]
+pos=nx.spring_layout(Gcc)
+plt.axis('off')
+nx.draw_networkx_nodes(Gcc,pos,node_size=20)
+nx.draw_networkx_edges(Gcc,pos,alpha=0.4)
+
+plt.savefig("degree_histogram.png")
+plt.show()
+
+
+Gg = makeZDD(randomHap(nmarker,ncaco))
+G = graphZDD(Gg)
+
+degree_sequence=sorted(nx.degree(G).values(),reverse=True) # degree sequence
+print(degree_sequence)
+
+#print "Degree sequence", degree_sequence
+dmax=max(degree_sequence)
+
+plt.loglog(degree_sequence,'b-',marker='o')
+plt.title("Degree rank plot")
+plt.ylabel("degree")
+plt.xlabel("rank")
+
+# draw graph in inset
+plt.axes([0.45,0.45,0.45,0.45])
+Gcc=sorted(nx.connected_component_subgraphs(G), key = len, reverse=True)[0]
+pos=nx.spring_layout(Gcc)
+plt.axis('off')
+nx.draw_networkx_nodes(Gcc,pos,node_size=20)
+nx.draw_networkx_edges(Gcc,pos,alpha=0.4)
+
+plt.savefig("degree_histogram.png")
+plt.show()
