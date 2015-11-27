@@ -162,7 +162,41 @@ def plotZDD(G):
     nx.draw_networkx_edges(gg,pos,e_hi,edge_color='r',style='dashed')
     plt.show()
 
-Gg = makeZDD(randomHapCaseCont(20,20,20))
+def permuteHaps(haps):
+    haps2 = numpy.array(haps)
+    
+    tmp = haps2[...,haps2.shape[1]-1]
+    tmp2 = random.sample(tmp,len(tmp))
+    haps2[...,haps2.shape[1]-1] = tmp2
+    return haps2
+
+myhaps = randomHapCaseCont(20,40,40)
+
+myhaps2 = permuteHaps(myhaps)
+
+niter = 1000
+res = []
+res3 = []
+for i in range(niter):
+    myhaps2 = permuteHaps(myhaps)
+    myhaps3 = permuteHaps(myhaps)
+    s = random.sample(range(myhaps2.shape[1]-1),1)
+    myhaps3[...,myhaps2.shape[1]-1] = myhaps2[...,s[0]]
+    Gg = makeZDD(myhaps2)
+    tmp = statZDD(Gg)
+    #res.append(numpy.dot(tmp,range(len(tmp))))
+    res.append(sum(tmp))
+    Gg3 = makeZDD(myhaps3)
+    tmp = statZDD(Gg3)
+    #res3.append(numpy.dot(tmp,range(len(tmp))))
+    res3.append(sum(tmp))
+
+plt.hist(res,alpha=0.3,color='r')
+plt.hist(res3,alpha=0.3,color='b')
+plt.show()
+
+
+Gg = makeZDD(randomHapCaseCont(50,50,50))
 #plotZDD(G)
 
 gg = graphZDD(Gg)
