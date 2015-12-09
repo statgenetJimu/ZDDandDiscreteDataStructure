@@ -1,4 +1,3 @@
-#LOAD_PATHはすこし変更、動きますか？
 $LOAD_PATH.push("/home/satoshi/.gem/ruby/2.2.0/lib/nysol")
 require "zdd"
 

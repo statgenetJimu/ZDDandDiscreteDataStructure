@@ -8,9 +8,9 @@ import matplotlib.pyplot as plt
 from numpy import *
 import numpy as np
 
-ncase = 20
-ncont = 20
-nmarker = 25
+ncase = 3
+ncont = 3
+nmarker = 15 
 
 hapcase = []
 hapcont = []
@@ -116,12 +116,10 @@ for i in v_id:
     countsin.append(v_lo.count(str(i)))
     countsout.append(v_hi.count(str(i)))
 
-print haps
-print v_id
-print v_lo
-print v_hi
-print countslab
-print countsin
-print countsout
-
+#v_lab = map(int, v_lab)
+#v_hi = map(int, v_hi)
+#V_lo = map(int, v_lo)
+import numpy as np
+a = np.array([v_id, v_hi, v_lo, v_lab])
+print a
 plt.show()
