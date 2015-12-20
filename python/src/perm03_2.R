@@ -35,7 +35,7 @@ FQca <- read.zdd("permdata/FQca.txt")
 FQco <- read.zdd("permdata/FQco.txt")
 par(mfrow=c(1,2))
 x=c(1,20)
-y=c(1,1000)
+y=c(1,3000)
 b=1000
 hist(FQca,col=rgb(0.5,0,0, alpha=0.4),xlim=x, ylim=y, breaks=11)
 par(new=T)
