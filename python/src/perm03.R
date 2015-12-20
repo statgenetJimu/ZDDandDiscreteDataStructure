@@ -39,14 +39,23 @@ ylim <- c(0,300)
 breaks <- 1000 
 
 if(sum(FQ.ca) != 0){
-	hist(FQ.ca, col=rgb(1,1,0, alpha=0.5), xlim=xlim, ylim=ylim)
+	hist(FQ.ca, col=rgb(1,0.5,0, alpha=0.3), xlim=xlim, ylim=ylim)
 }
 if(sum(FQ.co) != 0){
 	par(new=T)
-	hist(FQ.co, col=rgb(1,0,1, alpha=0.5), xlim=xlim, ylim=ylim)
+	hist(FQ.co, col=rgb(1,0,0.5, alpha=0.3), xlim=xlim, ylim=ylim)
 }
 
 par(new=T)
 hist(ca, col=rgb(1,0,0, alpha=0.3), xlim=xlim, ylim=ylim, breaks=breaks)
 par(new=T)
 hist(co, col=rgb(0,1,0, alpha=0.3), xlim=xlim, ylim=ylim, breaks=breaks)
+
+if(sum(FQ.ca) != 0){
+	hist(FQ.ca, col=rgb(1,0.5,0, alpha=0.3), xlim=xlim, ylim=ylim)
+}
+if(sum(FQ.co) != 0){
+	par(new=T)
+	hist(FQ.co, col=rgb(1,0,0.5, alpha=0.3), xlim=xlim, ylim=ylim)
+}
+
