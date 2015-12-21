@@ -36,26 +36,18 @@ FQ.co <- as.integer(na.exclude(as.numeric(unlist(lapply(lcm.co, collapse.lcm))))
 
 xlim <- c(0,20)
 ylim <- c(0,300)
-breaks <- 1000 
+breaks <- seq(4, 1004) 
+
 
 if(sum(FQ.ca) != 0){
-	hist(FQ.ca, col=rgb(1,0.5,0, alpha=0.3), xlim=xlim, ylim=ylim)
+	hist(FQ.ca, col=rgb(0,0,0, alpha=0.3), xlim=xlim, ylim=ylim)
 }
 if(sum(FQ.co) != 0){
 	par(new=T)
-	hist(FQ.co, col=rgb(1,0,0.5, alpha=0.3), xlim=xlim, ylim=ylim)
+	hist(FQ.co, col=rgb(0,0,0, alpha=0.3), xlim=xlim, ylim=ylim)
 }
 
 par(new=T)
-hist(ca, col=rgb(1,0,0, alpha=0.3), xlim=xlim, ylim=ylim, breaks=breaks)
+hist(ca, col=rgb(0,0,0, alpha=0.25), xlim=xlim, ylim=ylim, breaks=breaks)
 par(new=T)
-hist(co, col=rgb(0,1,0, alpha=0.3), xlim=xlim, ylim=ylim, breaks=breaks)
-
-if(sum(FQ.ca) != 0){
-	hist(FQ.ca, col=rgb(1,0.5,0, alpha=0.3), xlim=xlim, ylim=ylim)
-}
-if(sum(FQ.co) != 0){
-	par(new=T)
-	hist(FQ.co, col=rgb(1,0,0.5, alpha=0.3), xlim=xlim, ylim=ylim)
-}
-
+hist(co, col=rgb(0,0,0, alpha=0.25), xlim=xlim, ylim=ylim, breaks=breaks)
