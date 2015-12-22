@@ -33,21 +33,29 @@ return(tmp)
 haps <- read.transaction("trans.txt")
 FQca <- read.zdd("permdata/FQca.txt")
 FQco <- read.zdd("permdata/FQco.txt")
-par(mfrow=c(1,2))
 x=c(1,1004)
-y=c(1,500)
-b=1000
-hist(FQca,col=rgb(0.5,0,0, alpha=0.4),xlim=x, ylim=y, breaks=11)
+y=c(1,1000)
+b=100
+
+par(mfrow=c(1,2))
+hist(FQca,col=rgb(1,0,0, alpha=0.4), lty="blank",
+	 xlim=x, ylim=y, breaks=100, main="FQ-case" )
+
 par(new=T)
-hist(haps[[1]],xlim=x, ylim=y, breaks=b)
+hist(haps[[1]], col=rgb(0.2,0.2,0.2, alpha=0.5), lty="blank",
+	 xlim=x, ylim=y, breaks=b, main="", xlab="")
+
 if(length(FQco)!=0){
-	hist(FQco,col=rgb(0.5,0,0, alpha=0.4),xlim=x, ylim=y, breaks=11)
+	hist(FQco,col=rgb(1,0,0, alpha=0.4), lty="blank",
+		 xlim=x, ylim=y, breaks=100, main="FQ-cont")
 	par(new=T)
 }
-hist(haps[[2]],xlim=x, ylim=y, breaks=b)
 
-#MQca <- read.zdd("permdata/MQca.txt")
-#MQco <- read.zdd("permdata/MQco.txt")
+hist(haps[[2]], col=rgb(0.2,0.2,0.2, alpha=0.5), lty="blank",
+	 xlim=x, ylim=y, breaks=b, main="", xlab="")
+
+MQca <- read.zdd("permdata/MQca.txt")
+MQco <- read.zdd("permdata/MQco.txt")
 
 #hist(MQca,col=rgb(0.5,0,0, alpha=0.4),xlim=x, ylim=y, breaks=11)
 #par(new=T)
