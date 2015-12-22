@@ -59,7 +59,7 @@ test=ZDD::lcm("MQ","permdata/haps.txt",30,"permdata/order.txt")
 pcase=test.restrict(ca)/ca
 pcont=test.restrict(co)/co
 
-#lcm-FQで作成された頻出パターンをテキスト形式で書き出し
+#lcm-MQで作成された頻出パターンをテキスト形式で書き出し
 outpcase=pcase.to_s
 File.open("permdata/MQca.txt", "w") do |file|
 	file.write(outpcase)

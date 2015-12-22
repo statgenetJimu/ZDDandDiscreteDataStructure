@@ -1,5 +1,4 @@
 library('stringr')
-
 cases <- conts <- c()
 data <- scan("permdata/haps.txt", what=character(), sep="\n")
 
@@ -16,6 +15,7 @@ ca <- as.numeric(cases)
 co <- as.numeric(conts)
 
 data.lcm <- scan("permdata/FQ.txt", what=character(), sep="\n")
+data.lcm <- na.omit(data.lcm)
 
 collapse.lcm <- function(item){
 	tmp <-  c()
@@ -33,6 +33,7 @@ lcm.co <- str_split(lcm.co, " ")
 FQ.ca <- as.integer(na.exclude(as.numeric(unlist(lapply(lcm.ca, collapse.lcm)))))
 FQ.co <- as.integer(na.exclude(as.numeric(unlist(lapply(lcm.co, collapse.lcm)))))
 
+print(FQ.co)
 
 xlim <- c(0,20)
 ylim <- c(0,300)
