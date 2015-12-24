@@ -69,7 +69,7 @@ niter=100
 
 #トランザクションファイルの作り方はほぼ一緒
 permutation = Array.new
-for j in 0..niter do
+for j in 0...niter do
     perms=Array.new
     permph=(1..200).map{[2,3].sample(1)}
     for i in 0..100 do
